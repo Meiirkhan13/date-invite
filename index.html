@@ -305,9 +305,9 @@
 
             <!-- ACTION BUTTONS -->
             <div class="space-y-3 pt-2">
-                <button onclick="copyToClipboard()" class="w-full py-3.5 bg-rose-500 text-white font-bold rounded-xl shadow-md hover:bg-rose-600 transition flex items-center justify-center gap-2 text-sm">
-                    <i class="fa-regular fa-copy"></i>
-                    <span id="copyBtnText">Жауапты көшіріп алу (WhatsApp / Telegram)</span>
+                <button onclick="openTelegramWithResult()" class="w-full py-3.5 bg-rose-500 text-white font-bold rounded-xl shadow-md hover:bg-rose-600 transition flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-brands fa-telegram text-lg"></i>
+                    <span>Жауапты Telegram арқылы жіберу ✨</span>
                 </button>
             </div>
         </div>
@@ -535,6 +535,33 @@
             setTimeout(() => {
                 btnText.innerText = originalText;
             }, 3000);
+        }
+
+        function openTelegramWithResult() {
+            const format = document.getElementById('summaryFormat').innerText;
+            const date = document.getElementById('summaryDate').innerText;
+            const time = document.getElementById('summaryTime').innerText;
+    
+            // Проверяем, заполнено ли поле с пожеланием
+            const wishContainer = document.getElementById('summaryWishContainer');
+            const wish = !wishContainer.classList.contains('hidden') 
+                ? document.getElementById('summaryWish').innerText 
+                : '';
+
+            // Формируем текст сообщения
+            let text = `Сәлем! Мен келістім! ✨\n\n📌 Формат: ${format}\n📅 Күні: ${date}\n⏰ Уақыты: ${time}`;
+            if (wish) {
+                text += `\n💬 Қосымша: ${wish}`;
+            }
+
+            // Укажите ваш username в Telegram без символа @
+            const telegramUsername = 'meiir_n';
+
+            // Ссылка диплинка для Telegram
+            const tgUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(text)}`;
+
+            // Открываем диалог в новой вкладке/приложении Telegram
+            window.open(tgUrl, '_blank');
         }
     </script>
 </body>
